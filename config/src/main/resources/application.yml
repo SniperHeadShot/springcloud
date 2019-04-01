@@ -15,6 +15,15 @@ spring:
           search-paths: springcloud  # 配置仓库路径,可以配置多个,用,分割
           username: # 访问git仓库的用户名
           password: # 访问git仓库的用户密码
+    bus:
+      enabled: true # 刷新时，关闭安全验证
+      trace:
+        enabled: true # 开启消息跟踪
+  rabbitmq:
+    host: 101.132.45.166
+    port: 5672
+    username: yushen
+    password: 123123
 
 # Eureka Client配置
 eureka:
@@ -36,4 +45,4 @@ management:
   endpoints:
     web:
       exposure:
-        include: ["health","info"]
+        include: ["bus-refresh","health","info"]

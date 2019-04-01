@@ -15,9 +15,9 @@ spring:
         enabled: true
         service-id: service-config
     bus:
-      enabled: true
+      enabled: true # 刷新时，关闭安全验证
       trace:
-        enabled: true
+        enabled: true # 开启消息跟踪
   rabbitmq:
     host: 101.132.45.166
     port: 5672
