@@ -16,14 +16,6 @@ public class UserAPI {
     @Autowired
     private UserService userService;
 
-    @Value("${spring1.application1.name1}")
-    private String spring2;
-
-    @GetMapping("/test")
-    public String test() {
-        return spring2;
-    }
-
     @GetMapping("/user/list")
     public List<User> getUserList(@RequestParam(value = "currentPage") String currentPage, @RequestParam(value = "pageSize") String pageSize, User user) {
         return userService.getUserList(currentPage, pageSize, user);
