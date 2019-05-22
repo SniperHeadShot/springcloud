@@ -1,4 +1,4 @@
-package com.bat.springcloud.domain;
+package com.bat.springcloud.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class UserDORequest {
 
     private Long id;
     private String username;

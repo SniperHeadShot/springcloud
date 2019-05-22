@@ -1,6 +1,7 @@
 package com.bat.springcloud.service.impl;
 
-import com.bat.springcloud.domain.User;
+import com.bat.springcloud.domain.UserDO;
+import com.bat.springcloud.request.UserDORequest;
 import com.bat.springcloud.service.UserService;
 import com.bat.springcloud.util.CommonUtil;
 import org.springframework.stereotype.Service;
@@ -15,27 +16,27 @@ public class UserServiceImpl implements UserService {
     private final AtomicLong atomicLong = new AtomicLong();
 
     @Override
-    public List<User> getUserList(String currentPage, String pageSize, User user) {
-        List<User> userList = new ArrayList<>();
+    public List<UserDO> getUserList(UserDORequest userDORequest) {
+        List<UserDO> userDOList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            userList.add(new User(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 1, 1, 1, 1));
+            userDOList.add(new UserDO(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 1, 1, 1, 1));
         }
-        userList.add(new User(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 0, 0, 0, 0));
-        return userList;
+        userDOList.add(new UserDO(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 0, 0, 0, 0));
+        return userDOList;
     }
 
     @Override
-    public User getUser(String userId) {
-        return new User(atomicLong.incrementAndGet(), "YuShen", "111111", 1, 1, 1, 1);
+    public UserDO getUser(String userId) {
+        return new UserDO(atomicLong.incrementAndGet(), "YuShen", "111111", 1, 1, 1, 1);
     }
 
     @Override
-    public Boolean addUser(User user) {
+    public Boolean addUser(UserDO userDO) {
         return CommonUtil.getRandomBooleanResult();
     }
 
     @Override
-    public Boolean updateUser(User user) {
+    public Boolean updateUser(UserDO userDO) {
         return CommonUtil.getRandomBooleanResult();
     }
 

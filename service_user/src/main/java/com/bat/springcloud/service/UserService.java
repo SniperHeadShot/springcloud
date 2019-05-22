@@ -1,18 +1,19 @@
 package com.bat.springcloud.service;
 
-import com.bat.springcloud.domain.User;
+import com.bat.springcloud.domain.UserDO;
+import com.bat.springcloud.request.UserDORequest;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<User> getUserList(String currentPage, String pageSize, User user);
+    List<UserDO> getUserList(UserDORequest userDORequest);
 
-    User getUser(String userId);
+    UserDO getUser(String userId);
 
-    Boolean addUser(User user);
+    Boolean addUser(UserDO userDO);
 
-    Boolean updateUser(User user);
+    Boolean updateUser(UserDO userDO);
 
     Boolean deleteUser(String userId);
 }
