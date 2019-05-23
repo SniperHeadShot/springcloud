@@ -18,16 +18,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDO> getUserList(UserDORequest userDORequest) {
         List<UserDO> userDOList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            userDOList.add(new UserDO(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 1, 1, 1, 1));
+        for (int i = 0; i < 5; i++) {
+            UserDO userDO = new UserDO();
+            userDO.setId(atomicLong.incrementAndGet());
+            userDO.setUsername(CommonUtil.getRandomUsername());
+            userDO.setPassword("111111");
+            userDO.setIsCredential(1);
+            userDO.setIsEnabled(1);
+            userDO.setIsExpired(1);
+            userDO.setIsLock(1);
+            userDOList.add(userDO);
         }
-        userDOList.add(new UserDO(atomicLong.incrementAndGet(), CommonUtil.getRandomUsername(), "111111", 0, 0, 0, 0));
         return userDOList;
     }
 
     @Override
     public UserDO getUser(String userId) {
-        return new UserDO(atomicLong.incrementAndGet(), "YuShen", "111111", 1, 1, 1, 1);
+        UserDO userDO = new UserDO();
+        userDO.setId(atomicLong.incrementAndGet());
+        userDO.setUsername(CommonUtil.getRandomUsername());
+        userDO.setPassword("111111");
+        userDO.setIsCredential(1);
+        userDO.setIsEnabled(1);
+        userDO.setIsExpired(1);
+        userDO.setIsLock(1);
+        return userDO;
     }
 
     @Override

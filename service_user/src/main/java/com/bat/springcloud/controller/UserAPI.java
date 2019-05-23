@@ -30,26 +30,26 @@ public class UserAPI {
             @ApiImplicitParam(name = "userDORequest", value = "人员检索条件", paramType = "query", dataType = "UserDORequest")})
     @GetMapping("/user/list")
     public List<UserDO> getUserList(UserDORequest userDORequest) {
-        return userService.getUserList(userDORequest);
+        return this.userService.getUserList(userDORequest);
     }
 
     @GetMapping("/user")
     public UserDO getUser(String userId) {
-        return userService.getUser(userId);
+        return this.userService.getUser(userId);
     }
 
     @PostMapping("/user")
     public Boolean addUser(UserDO userDO) {
-        return userService.addUser(userDO);
+        return this.userService.addUser(userDO);
     }
 
     @PutMapping("/user")
     public Boolean updateUser(UserDO userDO) {
-        return userService.updateUser(userDO);
+        return this.userService.updateUser(userDO);
     }
 
     @DeleteMapping("/user")
     public Boolean deleteUser(String userId) {
-        return userService.deleteUser(userId);
+        return this.userService.deleteUser(userId);
     }
 }

@@ -6,11 +6,13 @@ server:
 spring:
   application:
     name: service-user
+  profiles:
+    active: dev
   cloud:
     config:
       label: master
       profile: user
-      uri: http://101.132.45.166:8763/
+      uri: http://101.132.45.166:8686/
       discovery:
         enabled: true
         service-id: service-config
@@ -20,23 +22,3 @@ spring:
     port: 5672
     username: yushen
     password: 123123
-
-# Eureka 注册
-eureka:
-  instance:
-    hostname: 101.132.45.166
-    lease-expiration-duration-in-seconds: 30
-    lease-renewal-interval-in-seconds: 10
-  client:
-    serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
-
-# Actuator 健康检查
-management:
-  endpoint:
-    health:
-      show-details: always # /actuator/health 显示详情
-  endpoints:
-    web:
-      exposure:
-        include: ["health","info"]
