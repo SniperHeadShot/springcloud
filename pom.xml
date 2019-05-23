@@ -8,7 +8,6 @@
         <module>config</module>
         <module>service_user</module>
         <module>service_upms</module>
-        <module>service_sysconfig</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
