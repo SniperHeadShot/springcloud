@@ -90,6 +90,12 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>${pagehelper-springboot.version}</version>
         </dependency>
+
+        <dependency>
+            <artifactId>common</artifactId>
+            <groupId>com.bat</groupId>
+            <version>${common.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
