@@ -25,10 +25,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <!-- Spring Cloud -->
         <spring-cloud.version>Finchley.SR2</spring-cloud.version>
+        <!-- Swagger2 -->
         <swagger2.version>2.9.2</swagger2.version>
+        <!-- Lombok -->
         <lombok.version>1.16.20</lombok.version>
+        <!-- FastJson -->
         <fastjson.version>1.2.47</fastjson.version>
+        <!-- Mysql -->
+        <mysql.version>5.1.44</mysql.version>
+        <!-- Druid -->
+        <druid.version>1.1.10</druid.version>
+        <!-- Mybatis -->
+        <mybatis.version>2.0.1</mybatis.version>
+        <!-- PageHelper -->
+        <pagehelper.version>5.0.0</pagehelper.version>
+        <pagehelper-springboot.version>1.2.3</pagehelper-springboot.version>
     </properties>
 
     <dependencies>
