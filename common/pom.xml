@@ -24,5 +24,12 @@
             <artifactId>springfox-swagger2</artifactId>
             <version>${swagger2.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${common-codec.version}</version>
+        </dependency>
+
     </dependencies>
 </project>

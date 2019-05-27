@@ -26,15 +26,23 @@ public class CommonResult<T> {
     @ApiModelProperty(value = "数据")
     private T data;
 
-    public CommonResult(ConstantEnum constantEnum) {
+    private CommonResult(ConstantEnum constantEnum) {
         this.success = constantEnum.success();
         this.code = constantEnum.errCode();
         this.msg = constantEnum.msg();
     }
 
-    public CommonResult(ConstantEnum constantEnum, String msg) {
+    private CommonResult(ConstantEnum constantEnum, String msg) {
         this.success = constantEnum.success();
         this.code = constantEnum.errCode();
         this.msg = msg;
+    }
+
+    public static CommonResult buildCommonResult(ConstantEnum constantEnum) {
+        return new CommonResult(constantEnum);
+    }
+
+    public static CommonResult buildCommonResult(ConstantEnum constantEnum, String msg) {
+        return new CommonResult(constantEnum, msg);
     }
 }

@@ -28,5 +28,11 @@ public enum ConstantEnum implements CodeEnumInterface {
             errCode = 4000,
             msg = "参数不完整，请检查后再试!"
     )
-    PARAMETER_VERIFICATION_FAIL
+    PARAMETER_VERIFICATION_FAIL,
+    @CodeEntity(
+            success = false,
+            errCode = 5000,
+            msg = "数据库执行SQL失败!"
+    )
+    SQL_EXECUTE_FAIL
 }
