@@ -1,8 +1,10 @@
 package com.bat.springcloud.dao;
 
 import com.bat.springcloud.entity.AccountDO;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface AccountDOMapper {
+@Mapper
+public interface AccountDao {
     int deleteByPrimaryKey(Long accountId);
 
     int insert(AccountDO record);

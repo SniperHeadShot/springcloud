@@ -34,7 +34,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("用户相关API")
-                .description("用户的增删改查操作")
+                .description("用户服务")
                 .termsOfServiceUrl("http://101.132.45.166:8761/")
                 .version("1.0")
                 .build();

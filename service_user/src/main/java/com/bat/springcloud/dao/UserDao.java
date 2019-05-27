@@ -1,8 +1,10 @@
 package com.bat.springcloud.dao;
 
 import com.bat.springcloud.entity.UserDO;
+import org.apache.ibatis.annotations.Mapper;
 
-public interface UserDOMapper {
+@Mapper
+public interface UserDao {
     int deleteByPrimaryKey(Integer accountUuid);
 
     int insert(UserDO record);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bat.springcloud.dao.AccountDOMapper">
+<mapper namespace="com.bat.springcloud.dao.AccountDao">
   <resultMap id="BaseResultMap" type="com.bat.springcloud.entity.AccountDO">
     <id column="account_id" jdbcType="BIGINT" property="accountId" />
     <result column="account_uuid" jdbcType="VARCHAR" property="accountUuid" />

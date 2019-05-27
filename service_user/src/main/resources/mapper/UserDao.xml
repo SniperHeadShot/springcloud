@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bat.springcloud.dao.UserDOMapper">
+<mapper namespace="com.bat.springcloud.dao.UserDao">
   <resultMap id="BaseResultMap" type="com.bat.springcloud.entity.UserDO">
     <id column="account_uuid" jdbcType="INTEGER" property="accountUuid" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />

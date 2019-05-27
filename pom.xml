@@ -43,6 +43,8 @@
         <!-- PageHelper -->
         <pagehelper.version>5.0.0</pagehelper.version>
         <pagehelper-springboot.version>1.2.3</pagehelper-springboot.version>
+        <!-- commons-codec-->
+        <common-codec.version>1.10</common-codec.version>
         <!-- common -->
         <common.version>0.0.1-SNAPSHOT</common.version>
     </properties>
