@@ -8,6 +8,7 @@ import com.bat.springcloud.request.UserLoginRequest;
 import com.bat.springcloud.response.CommonResult;
 import com.bat.springcloud.service.AccountService;
 import com.bat.springcloud.util.CommonUtil;
+import com.bat.springcloud.util.VerificationCodeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
         if (StringUtils.isEmpty(userLoginRequest.getVerificationCode()) || StringUtils.isEmpty(userLoginRequest.getUsername()) || StringUtils.isEmpty(userLoginRequest.getPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
         }
-        // TODO 校验验证码 这里可以使用Redis
+        // TODO 校验验证码 这里可以Redis
         if (!"GTX".equals(userLoginRequest.getVerificationCode())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误!");
         }
@@ -69,5 +70,21 @@ public class AccountServiceImpl implements AccountService {
         accountDO.setAccountPassword(CommonUtil.md5Encrypt(userInsertSimpleRequest.getAccountPassword()));
         int result = this.accountDao.insertSelective(accountDO);
         return CommonResult.buildCommonResult(result > 0 ? ConstantEnum.GLOBAL_SUCCESS : ConstantEnum.SQL_EXECUTE_FAIL);
+    }
+
+    /**
+     * @param accountName
+     * @Param [accountName]
+     * @Return java.lang.String
+     * @Author ZhengYu
+     * @Description: 获取验证码文本
+     * @Date 2019/5/29
+     */
+    @Override
+    public String createVerificationCode(String accountName) {
+        String verificationCodeText = VerificationCodeUtil.createVerificationCodeText();
+        //TODO 将验证码和用户名绑定放入redis
+
+        return verificationCodeText;
     }
 }

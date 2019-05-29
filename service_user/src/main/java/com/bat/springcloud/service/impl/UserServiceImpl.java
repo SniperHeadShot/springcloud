@@ -1,5 +1,8 @@
 package com.bat.springcloud.service.impl;
 
+import com.bat.springcloud.dao.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  * @ClassName UserServiceImpl
  * @Description 用户服务
@@ -9,4 +12,6 @@ package com.bat.springcloud.service.impl;
  **/
 public class UserServiceImpl {
 
+    @Autowired
+    private UserDao userDao;
 }
