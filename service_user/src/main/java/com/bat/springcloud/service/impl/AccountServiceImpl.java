@@ -55,7 +55,7 @@ public class AccountServiceImpl implements AccountService {
         if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS,"登陆校验通过!");
     }
 
     /**
