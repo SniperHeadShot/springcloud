@@ -44,7 +44,7 @@ public class AccountApi {
         log.info("校验用户登陆 AccountLoginApi.loginCheck ======> 入参：{}", JSONObject.toJSONString(userLoginRequest));
         CommonResult commonResult;
         try {
-            commonResult = accountService.checkAccount(userLoginRequest);
+            commonResult = this.accountService.checkAccount(userLoginRequest);
         } catch (Exception e) {
             log.error("校验用户登陆 AccountLoginApi.loginCheck 出错", e);
             commonResult = CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL);
@@ -60,7 +60,7 @@ public class AccountApi {
         log.info("账号注册 UserApi.registerAccount ======> 入参：{}", JSONObject.toJSONString(userInsertSimpleRequest));
         CommonResult commonResult;
         try {
-            commonResult = accountService.registerAccount(userInsertSimpleRequest);
+            commonResult = this.accountService.registerAccount(userInsertSimpleRequest);
         } catch (Exception e) {
             log.error("账号注册 UserApi.registerAccount 出错", e);
             commonResult = CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL);
@@ -78,7 +78,7 @@ public class AccountApi {
         long startTime = System.currentTimeMillis();
         log.info("获取验证码 UserApi.getVerificationCode ======> 入参：{}", accountName);
         try {
-            String verificationCode = accountService.createVerificationCode(accountName);
+            String verificationCode = this.accountService.createVerificationCode(accountName);
             VerificationCodeUtil.drawVerificationCodeText(verificationCode, response);
         } catch (Exception e) {
             log.error("获取验证码 UserApi.getVerificationCode 出错", e);

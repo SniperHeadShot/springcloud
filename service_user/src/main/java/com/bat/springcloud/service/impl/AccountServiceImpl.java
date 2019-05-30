@@ -46,12 +46,12 @@ public class AccountServiceImpl implements AccountService {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
         }
         // 校验验证码
-        String verificationCode = redisUtils.getStringFromRedis(userLoginRequest.getUsername() + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX);
+        String verificationCode = this.redisUtils.getStringFromRedis(userLoginRequest.getUsername() + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX);
         if (StringUtils.isEmpty(verificationCode) || !verificationCode.equals(userLoginRequest.getVerificationCode())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误或验证码已过期!");
         }
         // 校验用户名和密码
-        AccountDO selectByAccountName = accountDao.selectByAccountName(userLoginRequest.getUsername());
+        AccountDO selectByAccountName = this.accountDao.selectByAccountName(userLoginRequest.getUsername());
         if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
@@ -71,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
         if (StringUtils.isEmpty(userInsertSimpleRequest.getAccountName()) || StringUtils.isEmpty(userInsertSimpleRequest.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
         }
-        AccountDO selectByAccountName = accountDao.selectByAccountName(userInsertSimpleRequest.getAccountName());
+        AccountDO selectByAccountName = this.accountDao.selectByAccountName(userInsertSimpleRequest.getAccountName());
         if (selectByAccountName != null) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户已存在!");
         }
@@ -79,7 +79,7 @@ public class AccountServiceImpl implements AccountService {
         accountDO.setAccountUuid(CommonUtil.getRandomUuid());
         accountDO.setAccountName(userInsertSimpleRequest.getAccountName());
         accountDO.setAccountPassword(CommonUtil.md5Encrypt(userInsertSimpleRequest.getAccountPassword()));
-        int result = accountDao.insertSelective(accountDO);
+        int result = this.accountDao.insertSelective(accountDO);
         return CommonResult.buildCommonResult(result > 0 ? ConstantEnum.GLOBAL_SUCCESS : ConstantEnum.SQL_EXECUTE_FAIL);
     }
 
