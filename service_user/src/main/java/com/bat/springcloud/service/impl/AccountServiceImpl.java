@@ -94,7 +94,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public String createVerificationCode(String accountName) {
         String verificationCodeText = VerificationCodeUtil.createVerificationCodeText();
-        //TODO 将验证码和用户名绑定放入redis
+        // 将验证码和用户名绑定放入redis
         redisUtils.setStringToRedis(accountName + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX, verificationCodeText, BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS);
         return verificationCodeText;
     }
