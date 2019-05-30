@@ -1,5 +1,6 @@
 package com.bat.springcloud.service.impl;
 
+import com.bat.springcloud.constant.BaseSystemConfig;
 import com.bat.springcloud.dao.AccountDao;
 import com.bat.springcloud.entity.AccountDO;
 import com.bat.springcloud.enums.ConstantEnum;
@@ -8,6 +9,7 @@ import com.bat.springcloud.request.UserLoginRequest;
 import com.bat.springcloud.response.CommonResult;
 import com.bat.springcloud.service.AccountService;
 import com.bat.springcloud.util.CommonUtil;
+import com.bat.springcloud.util.RedisUtils;
 import com.bat.springcloud.util.VerificationCodeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDao accountDao;
 
+    @Autowired
+    private RedisUtils redisUtils;
+
     /**
      * @param userLoginRequest
      * @Param [userLoginRequest]
@@ -40,13 +45,15 @@ public class AccountServiceImpl implements AccountService {
         if (StringUtils.isEmpty(userLoginRequest.getVerificationCode()) || StringUtils.isEmpty(userLoginRequest.getUsername()) || StringUtils.isEmpty(userLoginRequest.getPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
         }
-        // TODO 校验验证码 这里可以Redis
-        if (!"GTX".equals(userLoginRequest.getVerificationCode())) {
-            return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误!");
+        // 校验验证码
+        String verificationCode = redisUtils.getStringFromRedis(userLoginRequest.getUsername() + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX);
+        if (StringUtils.isEmpty(verificationCode) || !verificationCode.equals(userLoginRequest.getVerificationCode())) {
+            return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误或验证码已过期!");
         }
-        // TODO 校验用户名和密码
-        if (userLoginRequest.getUsername().equals(userLoginRequest.getPassword())) {
-            return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户密码不正确!");
+        // 校验用户名和密码
+        AccountDO selectByAccountName = this.accountDao.selectByAccountName(userLoginRequest.getUsername());
+        if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
+            return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
         return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
     }
@@ -68,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
         accountDO.setAccountUuid(CommonUtil.getRandomUuid());
         accountDO.setAccountName(userInsertSimpleRequest.getAccountName());
         accountDO.setAccountPassword(CommonUtil.md5Encrypt(userInsertSimpleRequest.getAccountPassword()));
-        int result = this.accountDao.insertSelective(accountDO);
+        int result = accountDao.insertSelective(accountDO);
         return CommonResult.buildCommonResult(result > 0 ? ConstantEnum.GLOBAL_SUCCESS : ConstantEnum.SQL_EXECUTE_FAIL);
     }
 
@@ -84,7 +91,7 @@ public class AccountServiceImpl implements AccountService {
     public String createVerificationCode(String accountName) {
         String verificationCodeText = VerificationCodeUtil.createVerificationCodeText();
         //TODO 将验证码和用户名绑定放入redis
-
+        redisUtils.setStringToRedis(accountName + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX, verificationCodeText, BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS);
         return verificationCodeText;
     }
 }

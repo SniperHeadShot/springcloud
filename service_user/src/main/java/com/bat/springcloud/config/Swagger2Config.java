@@ -33,8 +33,8 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("用户相关API")
-                .description("用户服务")
+                .title("账户相关API")
+                .description("账户相关服务")
                 .termsOfServiceUrl("http://101.132.45.166:8761/")
                 .version("1.0")
                 .build();

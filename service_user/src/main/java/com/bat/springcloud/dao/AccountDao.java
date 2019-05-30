@@ -13,6 +13,8 @@ public interface AccountDao {
 
     AccountDO selectByPrimaryKey(Long accountId);
 
+    AccountDO selectByAccountName(String accountName);
+
     int updateByPrimaryKeySelective(AccountDO record);
 
     int updateByPrimaryKey(AccountDO record);

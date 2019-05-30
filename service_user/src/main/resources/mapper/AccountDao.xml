@@ -21,6 +21,12 @@
     from t_test_account
     where account_id = #{accountId,jdbcType=BIGINT}
   </select>
+  <select id="selectByAccountName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_test_account
+    where account_name = #{accountName,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from t_test_account
     where account_id = #{accountId,jdbcType=BIGINT}
