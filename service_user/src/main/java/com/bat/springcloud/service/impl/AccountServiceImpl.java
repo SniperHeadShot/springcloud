@@ -51,7 +51,7 @@ public class AccountServiceImpl implements AccountService {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误或验证码已过期!");
         }
         // 校验用户名和密码
-        AccountDO selectByAccountName = this.accountDao.selectByAccountName(userLoginRequest.getUsername());
+        AccountDO selectByAccountName = accountDao.selectByAccountName(userLoginRequest.getUsername());
         if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
@@ -70,6 +70,10 @@ public class AccountServiceImpl implements AccountService {
     public CommonResult registerAccount(UserInsertSimpleRequest userInsertSimpleRequest) {
         if (StringUtils.isEmpty(userInsertSimpleRequest.getAccountName()) || StringUtils.isEmpty(userInsertSimpleRequest.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
+        }
+        AccountDO selectByAccountName = accountDao.selectByAccountName(userInsertSimpleRequest.getAccountName());
+        if (selectByAccountName != null) {
+            return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户已存在!");
         }
         AccountDO accountDO = new AccountDO();
         accountDO.setAccountUuid(CommonUtil.getRandomUuid());
