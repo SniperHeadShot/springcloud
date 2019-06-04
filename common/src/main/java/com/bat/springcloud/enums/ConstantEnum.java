@@ -12,22 +12,29 @@ import com.bat.springcloud.response.CodeEnumInterface;
  **/
 public enum ConstantEnum implements CodeEnumInterface {
 
+    // 全局成功
     @CodeEntity(
             success = true,
             msg = "操作成功!"
     )
     GLOBAL_SUCCESS,
+
+    // 全局失败
     @CodeEntity(
             success = false,
             errCode = -1,
             msg = "系统繁忙，请稍后再试!"
     )
     GLOBAL_FAIL,
+
+    // 全局参数不完整
     @CodeEntity(
             success = false,
             errCode = 4000,
             msg = "参数不完整，请检查后再试!"
     )
+
+    // 全局数据库执行失败
     PARAMETER_VERIFICATION_FAIL,
     @CodeEntity(
             success = false,
