@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.Instant;
 
 /**
@@ -76,15 +77,11 @@ public class AccountApi {
             @ApiImplicitParam(name = "accountName", value = "用户账号", required = true, paramType = "path", dataType = "string")
     })
     @GetMapping("/account/verificationCode/{accountName}")
-    public void getVerificationCode(@PathVariable String accountName, HttpServletResponse response) {
+    public void getVerificationCode(@PathVariable String accountName, HttpServletResponse response) throws IOException {
         long startTime = System.currentTimeMillis();
         log.info("获取验证码 UserApi.getVerificationCode ======> 入参：{}", accountName);
-        try {
-            String verificationCode = this.accountService.createVerificationCode(accountName);
-            VerificationCodeUtil.drawVerificationCodeText(verificationCode, response);
-        } catch (Exception e) {
-            log.error("获取验证码 UserApi.getVerificationCode 出错", e);
-        }
+        String verificationCode = this.accountService.createVerificationCode(accountName);
+        VerificationCodeUtil.drawVerificationCodeText(verificationCode, response);
         log.info("获取验证码 UserApi.getVerificationCode <====== 耗时:{}ms", Instant.now().plusMillis(~startTime).toEpochMilli());
     }
 }
