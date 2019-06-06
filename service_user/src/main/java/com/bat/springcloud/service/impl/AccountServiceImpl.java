@@ -47,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
         }
         // 校验验证码
         String verificationCode = this.redisUtils.getStringFromRedis(BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX + userLoginRequest.getUsername());
-        if (StringUtils.isEmpty(verificationCode) || !verificationCode.equals(userLoginRequest.getVerificationCode())) {
+        if (StringUtils.isEmpty(verificationCode) || !verificationCode.toUpperCase().equals(userLoginRequest.getVerificationCode().toUpperCase())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误或验证码已过期!");
         }
         // 校验用户名和密码
