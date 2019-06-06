@@ -52,7 +52,7 @@ public class GlobalExceptionHandler {
         }
         String requestBody = requestBodyText.toString();
 
-        String logRequestStr = System.getProperty("line.separator") + "request:" + System.getProperty("line.separator")
+        String logRequestStr = "request:" + System.getProperty("line.separator")
                 + "request url       ===>: {}" + System.getProperty("line.separator")
                 + "request header    ===>: {}" + System.getProperty("line.separator")
                 + "request params    ===>: {}" + System.getProperty("line.separator")
