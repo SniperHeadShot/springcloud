@@ -2,6 +2,11 @@
 server:
   port: 8900
 
+eureka:
+  instance:
+    prefer-ip-address: true # 使用IP注册
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+
 # 配置中心配置
 spring:
   application:
@@ -16,12 +21,14 @@ spring:
       discovery:
         enabled: true
         service-id: service-config
+
 # rabbitmq 配置
   rabbitmq:
     host: 101.132.45.166
     port: 5672
     username: yushen
     password: 123123
+
 # redis 配置
   redis:
     host: 101.132.45.166
