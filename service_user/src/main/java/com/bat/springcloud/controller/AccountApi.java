@@ -1,7 +1,6 @@
 package com.bat.springcloud.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bat.springcloud.enums.ConstantEnum;
 import com.bat.springcloud.request.UserInsertSimpleRequest;
 import com.bat.springcloud.request.UserLoginRequest;
 import com.bat.springcloud.response.CommonResult;
@@ -45,13 +44,7 @@ public class AccountApi {
     public CommonResult loginCheck(UserLoginRequest userLoginRequest) {
         long startTime = System.currentTimeMillis();
         log.info("校验用户登陆 AccountLoginApi.loginCheck ======> 入参：{}", JSONObject.toJSONString(userLoginRequest));
-        CommonResult commonResult;
-        try {
-            commonResult = this.accountService.checkAccount(userLoginRequest);
-        } catch (Exception e) {
-            log.error("校验用户登陆 AccountLoginApi.loginCheck 出错", e);
-            commonResult = CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL);
-        }
+        CommonResult commonResult = this.accountService.checkAccount(userLoginRequest);
         log.info("校验用户登陆 AccountLoginApi.loginCheck <====== 结果:{}; 耗时:{}ms", JSONObject.toJSONString(commonResult), Instant.now().plusMillis(~startTime).toEpochMilli());
         return commonResult;
     }
@@ -61,13 +54,7 @@ public class AccountApi {
     public CommonResult registerAccount(@RequestBody UserInsertSimpleRequest userInsertSimpleRequest) {
         long startTime = System.currentTimeMillis();
         log.info("账号注册 UserApi.registerAccount ======> 入参：{}", JSONObject.toJSONString(userInsertSimpleRequest));
-        CommonResult commonResult;
-        try {
-            commonResult = this.accountService.registerAccount(userInsertSimpleRequest);
-        } catch (Exception e) {
-            log.error("账号注册 UserApi.registerAccount 出错", e);
-            commonResult = CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL);
-        }
+        CommonResult commonResult = this.accountService.registerAccount(userInsertSimpleRequest);
         log.info("账号注册 UserApi.registerAccount <====== 结果:{}; 耗时:{}ms", JSONObject.toJSONString(commonResult), Instant.now().plusMillis(~startTime).toEpochMilli());
         return commonResult;
     }

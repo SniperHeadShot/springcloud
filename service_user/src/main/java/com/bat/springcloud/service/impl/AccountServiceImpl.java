@@ -32,12 +32,12 @@ public class AccountServiceImpl implements AccountService {
     private RedisUtils redisUtils;
 
     /**
+     * 校验验证码及账号密码是否正确
+     *
      * @param userLoginRequest
-     * @Param [userLoginRequest]
-     * @Return com.bat.springcloud.response.CommonResult
-     * @Author ZhengYu
-     * @Description: 校验验证码及账号密码是否正确
-     * @Date 2019/5/24
+     * @return com.bat.springcloud.response.CommonResult
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     @Override
     public CommonResult checkAccount(UserLoginRequest userLoginRequest) {
@@ -46,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL);
         }
         // 校验验证码
-        String verificationCode = this.redisUtils.getStringFromRedis(userLoginRequest.getUsername() + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX);
+        String verificationCode = this.redisUtils.getStringFromRedis(BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX + userLoginRequest.getUsername());
         if (StringUtils.isEmpty(verificationCode) || !verificationCode.equals(userLoginRequest.getVerificationCode())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "验证码输入有误或验证码已过期!");
         }
@@ -55,16 +55,16 @@ public class AccountServiceImpl implements AccountService {
         if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS,"登陆校验通过!");
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, "登陆校验通过!");
     }
 
     /**
+     * 账号注册
+     *
      * @param userInsertSimpleRequest
-     * @Param [userInsertSimpleRequest]
-     * @Return com.bat.springcloud.response.CommonResult
-     * @Author ZhengYu
-     * @Description: 账号注册
-     * @Date 2019/5/27
+     * @return com.bat.springcloud.response.CommonResult
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     @Override
     public CommonResult registerAccount(UserInsertSimpleRequest userInsertSimpleRequest) {
@@ -84,18 +84,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
     /**
+     * 获取验证码文本
+     *
      * @param accountName
-     * @Param [accountName]
-     * @Return java.lang.String
-     * @Author ZhengYu
-     * @Description: 获取验证码文本
-     * @Date 2019/5/29
+     * @return java.lang.String
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     @Override
     public String createVerificationCode(String accountName) {
         String verificationCodeText = VerificationCodeUtil.createVerificationCodeText();
         // 将验证码和用户名绑定放入redis
-        redisUtils.setStringToRedis(accountName + BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX, verificationCodeText, BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS);
+        redisUtils.setStringToRedis(BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX + accountName, verificationCodeText, BaseSystemConfig.ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS);
         return verificationCodeText;
     }
 }

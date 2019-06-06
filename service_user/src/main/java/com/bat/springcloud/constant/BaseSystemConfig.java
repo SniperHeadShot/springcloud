@@ -9,8 +9,14 @@ package com.bat.springcloud.constant;
  **/
 public interface BaseSystemConfig {
 
-    String ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX = "_verification_code";
+    /**
+     * 验证码 Redis key 后缀
+     */
+    String ACCOUNT_VERIFICATION_CODE_REDIS_SUFFIX = "login:verification:code:";
 
-    long ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS = 30 * 60; //验证码过期秒数
+    /**
+     * 验证码过期秒数
+     */
+    long ACCOUNT_VERIFICATION_CODE_TIMEOUT_MILLIONS = 30 * 60;
 
 }

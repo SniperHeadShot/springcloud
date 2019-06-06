@@ -14,29 +14,32 @@ import com.bat.springcloud.response.CommonResult;
 public interface AccountService {
 
     /**
-     * @Param [userLoginRequest]
-     * @Return com.bat.springcloud.response.CommonResult
-     * @Author ZhengYu
-     * @Description: 校验验证码及账号密码是否正确
-     * @Date 2019/5/24
+     * 校验验证码及账号密码是否正确
+     *
+     * @param userLoginRequest
+     * @return com.bat.springcloud.response.CommonResult
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     CommonResult checkAccount(UserLoginRequest userLoginRequest);
 
     /**
-     * @Param [userInsertSimpleRequest]
-     * @Return com.bat.springcloud.response.CommonResult
-     * @Author ZhengYu
-     * @Description: 账号注册
-     * @Date 2019/5/27
+     * 账号注册
+     *
+     * @param userInsertSimpleRequest
+     * @return com.bat.springcloud.response.CommonResult
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     CommonResult registerAccount(UserInsertSimpleRequest userInsertSimpleRequest);
 
     /**
-     * @Param [accountName]
-     * @Return java.lang.String
-     * @Author ZhengYu
-     * @Description: 获取验证码文本
-     * @Date 2019/5/29
+     * 获取验证码文本
+     *
+     * @param accountName
+     * @return java.lang.String
+     * @author ZhengYu
+     * @date 2019/6/6
      */
     String createVerificationCode(String accountName);
 }
