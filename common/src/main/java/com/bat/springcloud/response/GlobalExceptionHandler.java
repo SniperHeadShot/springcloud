@@ -30,9 +30,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public CommonResult defaultErrorHandler(HttpServletRequest httpServletRequest, Exception exception) throws IOException {
-        logger.error("==================== Exception Message Start ====================");
+        logger.error("#################### Exception Message Start ####################");
         // 请求 URL
-        logger.error("reqUrl   ======>: {}", httpServletRequest.getRequestURL());
+        String requestUrl = httpServletRequest.getRequestURL().toString();
         // 请求头
         Map<String, Object> requestHeadersMap = new ConcurrentHashMap<>(16);
         Enumeration<String> requestHeaderNames = httpServletRequest.getHeaderNames();
@@ -40,9 +40,9 @@ public class GlobalExceptionHandler {
             String headerName = requestHeaderNames.nextElement();
             requestHeadersMap.put(headerName, httpServletRequest.getHeader(headerName));
         }
-        logger.error("header   ========>: {}", requestHeadersMap.toString());
+        String requestHeader = requestHeadersMap.toString();
         // 请求参数
-        logger.error("params   ========>: {}", httpServletRequest.getQueryString());
+        String requestParams = httpServletRequest.getQueryString();
         // 请求体
         BufferedReader bufferedReader = httpServletRequest.getReader();
         StringBuilder requestBodyText = new StringBuilder();
@@ -50,12 +50,17 @@ public class GlobalExceptionHandler {
         while (!StringUtils.isEmpty(readLine = bufferedReader.readLine())) {
             requestBodyText.append(readLine);
         }
-        logger.error("body     ========>: {}", requestBodyText.toString());
-        // 异常信息
-        logger.error("errorMsg ========>: {}", exception.getMessage());
-        logger.error("", exception);
-        logger.error("==================== Exception Message End ====================");
+        String requestBody = requestBodyText.toString();
 
+        String logRequestStr = System.getProperty("line.separator") + "request:" + System.getProperty("line.separator")
+                + "request url       ===>: {}" + System.getProperty("line.separator")
+                + "request header    ===>: {}" + System.getProperty("line.separator")
+                + "request params    ===>: {}" + System.getProperty("line.separator")
+                + "request body      ===>: {}" + System.getProperty("line.separator")
+                + "exception context ===>: {}" + System.getProperty("line.separator");
+        logger.info(logRequestStr, requestUrl, requestHeader, requestParams, requestBody, exception);
+
+        logger.error("#################### Exception Message End ####################");
         if (exception instanceof ParameterVerificationNotPassException) {
             return CommonResult.buildCommonResult(ConstantEnum.PARAMETER_VERIFICATION_FAIL, exception.getMessage());
         }
