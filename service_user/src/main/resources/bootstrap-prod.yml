@@ -18,3 +18,35 @@ management:
     web:
       exposure:
         include: ["health","info"]
+
+# 数据库连接
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.6.192:3306/commontest?characterEncoding=utf8
+      username: zhengyu
+      password: 123123
+      initial-size: 10 # 初始连接池连接数量
+      min-idle: 5 # 必须保持连接的最小值
+      max-active: 10 # 最大活跃的连接数
+      max-wait: 60000 # 最长等待时间
+      time-between-eviction-runs-millis: 60000 # 空闲连接检查，废弃连接清理，空闲连接至大小调整 的时间间隔
+      min-evictable-idle-time-millis: 300000 # 空闲连接最小空闲多久之后可被清除
+      validation-query: SELECT 1 FROM DUAL # 获取连接时校验的SQL语句
+      test-while-idle: true # 当连接空闲时，是否执行连接测试
+      test-on-borrow: true # 从连接池中获取连接时是否测试该连接
+      test-on-return: false # 归还连接时是否测试该连接
+      pool-prepared-statements: true # 指定是否池化statements
+      max-pool-prepared-statement-per-connection-size: 20 # 指定最大的打开Prepared Statement数量
+
+# mybatis
+mybatis:
+  type-aliases-package: com.bat.springcloud.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    cache-enabled: true # 使全局的映射器启用或禁用缓存
+    useGeneratedKeys: true # 允许JDBC 生成主键。需要驱动器支持。如果设为了true，这个设置将强制使用被生成的主键，有一些驱动器不兼容不过仍然可以执行
+    defaultExecutorType: reuse # 默认的执行类型[ 'SIMPLE':简单 'REUSE':执行器可能重复使用prepared statements语句 'BATCH':执行器可以重复执行语句和批量更新 ]
+    mapUnderscoreToCamelCase: true # 使用驼峰命名法转换字段

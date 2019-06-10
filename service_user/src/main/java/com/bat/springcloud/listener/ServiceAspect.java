@@ -1,4 +1,4 @@
-package com.bat.springcloud.config;
+package com.bat.springcloud.listener;
 
 import com.alibaba.fastjson.JSONObject;
 import org.aspectj.lang.ProceedingJoinPoint;

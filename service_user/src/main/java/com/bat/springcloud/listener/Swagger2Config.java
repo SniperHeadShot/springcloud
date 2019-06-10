@@ -1,4 +1,4 @@
-package com.bat.springcloud.config;
+package com.bat.springcloud.listener;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
