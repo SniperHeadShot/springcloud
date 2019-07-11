@@ -20,7 +20,7 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.bat.springcloud.entity" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.bat.common.entity" targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -29,7 +29,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bat.springcloud.dao"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bat.common.dao"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

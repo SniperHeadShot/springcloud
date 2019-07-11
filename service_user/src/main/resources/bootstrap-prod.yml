@@ -43,7 +43,7 @@ spring:
 
 # mybatis
 mybatis:
-  type-aliases-package: com.bat.springcloud.entity
+  type-aliases-package: com.bat.common.entity
   mapper-locations: classpath:mapper/*.xml
   configuration:
     cache-enabled: true # 使全局的映射器启用或禁用缓存

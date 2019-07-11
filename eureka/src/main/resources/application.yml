@@ -6,9 +6,3 @@ spring:
     name: service-eureka
   profiles:
     active: dev
-
-  # 配置 security 保护 eureka
-  security:
-    user:
-      name: yushen
-      password: 123123

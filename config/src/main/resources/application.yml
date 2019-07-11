@@ -22,7 +22,7 @@ spring:
       server:
         git:
           uri: https://github.com/SniperHeadShot/config  # 配置git仓库的地址
-          search-paths: springcloud  # 配置仓库路径,可以用,分割配置多个
+          search-paths: common  # 配置仓库路径,可以用,分割配置多个
           username: # 访问git仓库的用户名
           password: # 访问git仓库的用户密码
     bus:

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bat.springcloud.dao.AccountDao">
-  <resultMap id="BaseResultMap" type="com.bat.springcloud.entity.AccountDO">
+<mapper namespace="com.bat.springcloud.user.dao.AccountDao">
+  <resultMap id="BaseResultMap" type="com.bat.springcloud.user.entity.AccountDO">
     <id column="account_id" jdbcType="BIGINT" property="accountId" />
     <result column="account_uuid" jdbcType="VARCHAR" property="accountUuid" />
     <result column="account_name" jdbcType="VARCHAR" property="accountName" />
@@ -31,7 +31,7 @@
     delete from t_test_account
     where account_id = #{accountId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bat.springcloud.entity.AccountDO">
+  <insert id="insert" parameterType="com.bat.springcloud.user.entity.AccountDO">
     insert into t_test_account (account_id, account_uuid, account_name, 
       account_password, account_expired, locked, 
       credentials_expired, enabled)
@@ -39,7 +39,7 @@
       #{accountPassword,jdbcType=VARCHAR}, #{accountExpired,jdbcType=BIT}, #{locked,jdbcType=BIT}, 
       #{credentialsExpired,jdbcType=BIT}, #{enabled,jdbcType=BIT})
   </insert>
-  <insert id="insertSelective" parameterType="com.bat.springcloud.entity.AccountDO">
+  <insert id="insertSelective" parameterType="com.bat.springcloud.user.entity.AccountDO">
     insert into t_test_account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="accountId != null">
@@ -94,7 +94,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bat.springcloud.entity.AccountDO">
+  <update id="updateByPrimaryKeySelective" parameterType="com.bat.springcloud.user.entity.AccountDO">
     update t_test_account
     <set>
       <if test="accountUuid != null">
@@ -121,7 +121,7 @@
     </set>
     where account_id = #{accountId,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bat.springcloud.entity.AccountDO">
+  <update id="updateByPrimaryKey" parameterType="com.bat.springcloud.user.entity.AccountDO">
     update t_test_account
     set account_uuid = #{accountUuid,jdbcType=VARCHAR},
       account_name = #{accountName,jdbcType=VARCHAR},
