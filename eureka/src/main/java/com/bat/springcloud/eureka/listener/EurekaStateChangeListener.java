@@ -1,7 +1,6 @@
 package com.bat.springcloud.eureka.listener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceCanceledEvent;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceRegisteredEvent;
 import org.springframework.cloud.netflix.eureka.server.event.EurekaInstanceRenewedEvent;
@@ -16,10 +15,9 @@ import org.springframework.stereotype.Component;
  * @author ZhengYu
  * @version 1.0 2019/7/11 16:46
  **/
+@Slf4j
 @Component
 public class EurekaStateChangeListener {
-
-    private static Logger log = LoggerFactory.getLogger(EurekaStateChangeListener.class);
 
     /**
      * 服务注册事件通知

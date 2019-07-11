@@ -1,8 +1,9 @@
 package com.bat.springcloud.user.service;
 
+import com.bat.common.response.CommonResult;
 import com.bat.springcloud.user.request.UserInsertSimpleRequest;
 import com.bat.springcloud.user.request.UserLoginRequest;
-import com.bat.common.response.CommonResult;
+
 
 /**
  * @ClassName AccountService

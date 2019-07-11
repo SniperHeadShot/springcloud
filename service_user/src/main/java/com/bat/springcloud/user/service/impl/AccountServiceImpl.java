@@ -1,16 +1,17 @@
 package com.bat.springcloud.user.service.impl;
 
+import com.bat.common.enums.ConstantEnum;
+import com.bat.common.response.CommonResult;
+import com.bat.common.util.UuidUtils;
 import com.bat.springcloud.user.constant.BaseSystemConfig;
 import com.bat.springcloud.user.dao.AccountDao;
 import com.bat.springcloud.user.entity.AccountDO;
-import com.bat.common.enums.ConstantEnum;
 import com.bat.springcloud.user.request.UserInsertSimpleRequest;
 import com.bat.springcloud.user.request.UserLoginRequest;
-import com.bat.common.response.CommonResult;
 import com.bat.springcloud.user.service.AccountService;
-import com.bat.common.util.CommonUtil;
 import com.bat.springcloud.user.util.RedisUtils;
 import com.bat.springcloud.user.util.VerificationCodeUtil;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
         }
         // 校验用户名和密码
         AccountDO selectByAccountName = this.accountDao.selectByAccountName(userLoginRequest.getUsername());
-        if (selectByAccountName == null || !CommonUtil.md5Encrypt(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
+        if (selectByAccountName == null || !DigestUtils.md5Hex(userLoginRequest.getPassword()).equals(selectByAccountName.getAccountPassword())) {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户不存在或者密码不正确!");
         }
         return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, "登陆校验通过!");
@@ -76,9 +77,9 @@ public class AccountServiceImpl implements AccountService {
             return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_FAIL, "账户已存在!");
         }
         AccountDO accountDO = new AccountDO();
-        accountDO.setAccountUuid(CommonUtil.getRandomUuid());
+        accountDO.setAccountUuid(UuidUtils.getRandomUuid());
         accountDO.setAccountName(userInsertSimpleRequest.getAccountName());
-        accountDO.setAccountPassword(CommonUtil.md5Encrypt(userInsertSimpleRequest.getAccountPassword()));
+        accountDO.setAccountPassword(DigestUtils.md5Hex(userInsertSimpleRequest.getAccountPassword()));
         int result = this.accountDao.insertSelective(accountDO);
         return CommonResult.buildCommonResult(result > 0 ? ConstantEnum.GLOBAL_SUCCESS : ConstantEnum.SQL_EXECUTE_FAIL);
     }

@@ -8,6 +8,7 @@
         <module>config</module>
         <module>service_user</module>
         <module>service_upms</module>
+        <module>quartz</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -44,8 +45,6 @@
         <pagehelper-springboot.version>1.2.3</pagehelper-springboot.version>
         <!-- commons-codec-->
         <common-codec.version>1.10</common-codec.version>
-        <!-- common -->
-        <common.version>0.0.1-SNAPSHOT</common.version>
     </properties>
 
     <dependencies>
