@@ -7,7 +7,7 @@
         <module>eureka</module>
         <module>config</module>
         <module>service_user</module>
-        <module>service_upms</module>
+        <module>remote-service-call</module>
         <module>quartz</module>
     </modules>
     <parent>

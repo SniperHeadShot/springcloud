@@ -25,4 +25,16 @@ public interface QuartzService {
      * @author ZhengYu
      */
     boolean stopTask(String uniqueTaskKey);
+
+    /**
+     * 拼接IP和端口
+     *
+     * @param ip   IP
+     * @param port 端口
+     * @return java.lang.String
+     * @author ZhengYu
+     */
+    default String concatIpPort(String ip, String port) {
+        return ip + ":" + port;
+    }
 }
