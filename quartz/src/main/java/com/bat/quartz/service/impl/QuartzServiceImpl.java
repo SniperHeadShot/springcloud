@@ -2,7 +2,7 @@ package com.bat.quartz.service.impl;
 
 import com.bat.quartz.config.QuartzManager;
 import com.bat.quartz.service.QuartzService;
-import com.bat.quartz.task.TestJob;
+import com.bat.quartz.task.CustomJob;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class QuartzServiceImpl implements QuartzService {
     @Override
     public boolean startTask(String uniqueTaskKey) {
         try {
-            quartzManager.addJob(TestJob.class, uniqueTaskKey);
+            quartzManager.addJob(CustomJob.class, uniqueTaskKey);
             return true;
         } catch (SchedulerException e) {
             log.info("开启定时任务出错 [{}]", e);
