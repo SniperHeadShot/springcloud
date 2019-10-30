@@ -1,6 +1,7 @@
 server:
   port: 8761
 
+# Eureka Server
 eureka:
   instance:
     appname: localhost
@@ -12,3 +13,10 @@ eureka:
   server:
     wait-time-in-ms-when-sync-empty: 0
     enable-self-preservation: false
+
+# Eureka Security
+spring:
+  security:
+    user:
+      name: admin
+      password: 123456

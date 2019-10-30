@@ -1,14 +1,10 @@
 server:
   port: 9000
 
-spring:
-  application:
-    name: eureka-simple-client
-
 eureka:
   instance:
     hostname: localhost
     instance-id: ${eureka.instance.hostname}:${server.port}
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://admin:123456@localhost:8761/eureka/
