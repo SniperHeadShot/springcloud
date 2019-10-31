@@ -13,10 +13,3 @@ eureka:
   server:
     wait-time-in-ms-when-sync-empty: 0
     enable-self-preservation: false
-
-# Eureka Security
-spring:
-  security:
-    user:
-      name: admin
-      password: 123456
