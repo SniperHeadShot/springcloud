@@ -1,0 +1,10 @@
+server:
+  port: 8000
+
+custom:
+  clientUrl: http://localhost:9000
+
+## Fallback 是通过 Hystrix 实现的, 所以需要开启 Hystrix
+feign:
+  hystrix:
+    enabled: true
