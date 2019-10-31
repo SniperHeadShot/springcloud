@@ -33,9 +33,9 @@ public enum ConstantEnum implements CodeEnumInterface {
             errCode = 4000,
             msg = "参数不完整，请检查后再试!"
     )
+    PARAMETER_VERIFICATION_FAIL,
 
     // 全局数据库执行失败
-            PARAMETER_VERIFICATION_FAIL,
     @CodeEntity(
             success = false,
             errCode = 5000,
@@ -49,5 +49,13 @@ public enum ConstantEnum implements CodeEnumInterface {
             errCode = 6000,
             msg = "微服务不可用!"
     )
-    REMOTE_CALL_FAIL
+    REMOTE_CALL_FAIL,
+
+    // 惊喜的异常
+    @CodeEntity(
+            success = false,
+            errCode = 9999,
+            msg = "Surprise!"
+    )
+    GLOBAL_SURPRISE
 }

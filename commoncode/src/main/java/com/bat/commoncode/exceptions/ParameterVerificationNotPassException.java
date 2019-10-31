@@ -1,5 +1,7 @@
 package com.bat.commoncode.exceptions;
 
+import com.bat.commoncode.enums.ConstantEnum;
+
 /**
  * 参数校验未通过通用异常
  *
@@ -13,7 +15,7 @@ public class ParameterVerificationNotPassException extends RuntimeException {
      *
      * @author ZhengYu
      */
-    public ParameterVerificationNotPassException(String message) {
-        super(message);
+    public ParameterVerificationNotPassException() {
+        super(ConstantEnum.PARAMETER_VERIFICATION_FAIL.msg());
     }
 }
