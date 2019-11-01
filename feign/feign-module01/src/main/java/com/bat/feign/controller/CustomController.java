@@ -1,6 +1,7 @@
 package com.bat.feign.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bat.commoncode.entity.CustomStructure;
 import com.bat.commoncode.response.CommonResult;
 import com.bat.feign.clients.CustomClient;
@@ -30,6 +31,6 @@ public class CustomController {
             add(customClient.customPost(customStructure));
             add(customClient.customPut(customStructure));
             add(customClient.customDelete(customStructure));
-        }});
+        }}, SerializerFeature.DisableCircularReferenceDetect);
     }
 }
