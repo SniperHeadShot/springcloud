@@ -1,6 +1,7 @@
 package com.bat.eureka.client.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bat.commoncode.annotation.CustomMethodDesc;
 import com.bat.commoncode.entity.CustomStructure;
 import com.bat.commoncode.enums.ConstantEnum;
 import com.bat.commoncode.exceptions.SurpriseException;
@@ -23,6 +24,7 @@ import java.util.Random;
 @RequestMapping("/custom")
 public class CustomController {
 
+    @CustomMethodDesc("GET 方法")
     @GetMapping("/get")
     public CommonResult customGet(HttpServletRequest request) {
         parseRequestParam(request, null);
@@ -30,6 +32,7 @@ public class CustomController {
         return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
     }
 
+    @CustomMethodDesc("POST 方法")
     @PostMapping("/post")
     public CommonResult customPost(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
@@ -37,6 +40,7 @@ public class CustomController {
         return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
     }
 
+    @CustomMethodDesc("PUT 方法")
     @PutMapping("/put")
     public CommonResult customPut(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
@@ -44,6 +48,7 @@ public class CustomController {
         return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
     }
 
+    @CustomMethodDesc("DELETE 方法")
     @DeleteMapping("/delete")
     public CommonResult customDelete(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
