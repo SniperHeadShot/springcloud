@@ -1,9 +1,9 @@
 server:
-  port: 9001
+  port: 11000
 
 spring:
   application:
-    name: eureka-client
+    name: client-ribbon
 
 eureka:
   instance:
