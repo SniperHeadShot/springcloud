@@ -7,6 +7,7 @@ import com.bat.commoncode.enums.ConstantEnum;
 import com.bat.commoncode.exceptions.SurpriseException;
 import com.bat.commoncode.response.CommonResult;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,12 +25,15 @@ import java.util.Random;
 @RequestMapping("/custom")
 public class CustomController {
 
+    @Value("${server.port}")
+    private String serverPort;
+
     @CustomMethodDesc("GET 方法")
     @GetMapping("/get")
     public CommonResult customGet(HttpServletRequest request) {
         parseRequestParam(request, null);
         buildSurprise();
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, serverPort);
     }
 
     @CustomMethodDesc("POST 方法")
@@ -37,7 +41,7 @@ public class CustomController {
     public CommonResult customPost(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
         buildSurprise();
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, serverPort);
     }
 
     @CustomMethodDesc("PUT 方法")
@@ -45,7 +49,7 @@ public class CustomController {
     public CommonResult customPut(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
         buildSurprise();
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, serverPort);
     }
 
     @CustomMethodDesc("DELETE 方法")
@@ -53,7 +57,7 @@ public class CustomController {
     public CommonResult customDelete(@RequestBody CustomStructure customStructure, HttpServletRequest request) {
         parseRequestParam(request, customStructure);
         buildSurprise();
-        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS);
+        return CommonResult.buildCommonResult(ConstantEnum.GLOBAL_SUCCESS, serverPort);
     }
 
     /**
