@@ -4,4 +4,8 @@ server:
 spring:
   application:
     name: message-push
-
+# redis 地址
+  redis:
+    database: 9
+    host: 192.168.6.111
+    port: 6379

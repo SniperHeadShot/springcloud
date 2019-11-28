@@ -2,6 +2,8 @@ package com.bat.commoncode.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 用于测试的结构体
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @version 1.0 2019/10/31 17:32
  **/
 @Data
-public class CustomStructure {
+public class CustomStructure implements Serializable {
 
     public CustomStructure() {
     }
