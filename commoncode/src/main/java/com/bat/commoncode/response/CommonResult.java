@@ -53,10 +53,6 @@ public class CommonResult<T> implements Serializable {
         return new CommonResult<T>(constantEnum.success(), constantEnum.errCode(), constantEnum.msg(), null);
     }
 
-    public static <T> CommonResult<T> buildCommonResult(ConstantEnum constantEnum, String msg) {
-        return new CommonResult<T>(constantEnum.success(), constantEnum.errCode(), msg, null);
-    }
-
     public static <T> CommonResult<T> buildCommonResult(ConstantEnum constantEnum, T data) {
         return new CommonResult<T>(constantEnum.success(), constantEnum.errCode(), constantEnum.msg(), data);
     }
