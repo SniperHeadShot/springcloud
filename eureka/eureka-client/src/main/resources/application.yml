@@ -7,7 +7,7 @@ spring:
 
 eureka:
   instance:
-    hostname: 192.168.9.164
+    hostname: 192.168.9.27
     prefer-ip-address: true
     instance-id: ${eureka.instance.hostname}:${server.port}
     lease-renewal-interval-in-seconds: 3 # 每隔时间间隔主动心跳一次，更新自己的状态
@@ -16,4 +16,4 @@ eureka:
     service-url:
       fetch-registry: true # 从Eureka Server拉取服务地址清单后缓存到本地
       registry-fetch-interval-seconds: 6 # 更新客户端缓存的服务清单时间间隔
-      defaultZone: http://192.168.9.164:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
