@@ -90,11 +90,7 @@ public class CustomController {
         // 读取 SessionId
         log.info("Http请求，SessionId=[{}]", request.getRequestedSessionId());
         // 读取 Cookie
-        Arrays.stream(request.getCookies())
-                .forEach(cookie -> {
-                    log.info("Http请求，Cookie Key=[{}], Value=[{}]", cookie.getName(), cookie.getValue());
-                });
-
+        Arrays.stream(request.getCookies()).forEach(cookie -> log.info("Http请求，Cookie Key=[{}], Value=[{}]", cookie.getName(), cookie.getValue()));
         // 读取请求头
         Enumeration<String> headersEnumeration = request.getHeaderNames();
         while (headersEnumeration.hasMoreElements()) {
