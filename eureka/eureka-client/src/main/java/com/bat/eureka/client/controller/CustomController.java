@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Random;
 
@@ -86,6 +87,14 @@ public class CustomController {
             String paramValue = request.getParameter(paramKey);
             log.info("Http请求，请求参数 Key=[{}], Value=[{}]", paramKey, paramValue);
         }
+        // 读取 SessionId
+        log.info("Http请求，SessionId=[{}]", request.getRequestedSessionId());
+        // 读取 Cookie
+        Arrays.stream(request.getCookies())
+                .forEach(cookie -> {
+                    log.info("Http请求，Cookie Key=[{}], Value=[{}]", cookie.getName(), cookie.getValue());
+                });
+
         // 读取请求头
         Enumeration<String> headersEnumeration = request.getHeaderNames();
         while (headersEnumeration.hasMoreElements()) {
