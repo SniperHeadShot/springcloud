@@ -40,7 +40,7 @@ public class EurekaClientChangeEventListener {
     public void listen(EurekaInstanceRegisteredEvent eurekaInstanceRegisteredEvent) {
         // 判断是否为master节点
         if (!eurekaInstanceRegisteredEvent.isReplication()) {
-            log.info("服务下线事件 ==> instanceInfo=[{}],leaseDuration=[{}]", JSONObject.toJSONString(eurekaInstanceRegisteredEvent.getInstanceInfo()), eurekaInstanceRegisteredEvent.getLeaseDuration());
+            log.info("服务注册事件 ==> instanceInfo=[{}],leaseDuration=[{}]", JSONObject.toJSONString(eurekaInstanceRegisteredEvent.getInstanceInfo()), eurekaInstanceRegisteredEvent.getLeaseDuration());
         }
     }
 
@@ -54,7 +54,7 @@ public class EurekaClientChangeEventListener {
     public void listen(EurekaInstanceRenewedEvent eurekaInstanceRenewedEvent) {
         // 判断是否为master节点
         if (!eurekaInstanceRenewedEvent.isReplication()) {
-            log.info("服务下线事件 ==> appName=[{}],serverId=[{}]", eurekaInstanceRenewedEvent.getAppName(), eurekaInstanceRenewedEvent.getServerId());
+            log.info("服务续约事件 ==> appName=[{}],serverId=[{}]", eurekaInstanceRenewedEvent.getAppName(), eurekaInstanceRenewedEvent.getServerId());
         }
     }
 
