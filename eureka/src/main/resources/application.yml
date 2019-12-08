@@ -1,6 +1,3 @@
-server:
-  port: 8761
-
 spring:
   application:
     name: eureka-server
@@ -8,12 +5,19 @@ spring:
 # Eureka Server
 eureka:
   instance:
-    appname: 192.168.9.164
+    appname: 47.100.114.192
   client:
     fetch-registry: false # 此应用为注册中心，false：不向注册中心注册自己
     register-with-eureka: false # 注册中心职责是维护服务实例，false：不检索服务
     service-url:
       defaultZone: http://${eureka.instance.appname}:${server.port}/eureka/
   server:
-    enable-self-preservation: false # 关闭自我保护机制
-    eviction-interval-timer-in-ms: 3000 # 清理间隔，并且每次主动失效检测时间间隔为3s
+    enable-self-preservation: true # 开启自我保护机制
+    eviction-interval-timer-in-ms: 300000 # 清理间隔，并且每次主动失效检测时间间隔为5分钟
+    peer-node-read-timeout-ms: 3000 # 读超时时间
+
+# 日志
+logging:
+  level:
+    com.bat.eureka.server: info
+  path: /usr/server/eureka/log
