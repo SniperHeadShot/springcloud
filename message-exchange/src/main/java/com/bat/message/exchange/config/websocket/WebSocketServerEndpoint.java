@@ -1,10 +1,13 @@
 package com.bat.message.exchange.config.websocket;
 
+import com.bat.commoncode.enums.MsgExchangeEnum;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -24,9 +27,12 @@ import java.util.concurrent.atomic.AtomicLong;
  **/
 @Slf4j
 @Data
-@ServerEndpoint("/websocket/{uniqueKey}")
+@ServerEndpoint(value = "/websocket/{uniqueKey}", configurator = SpringContextHelper.class)
 @Component
 public class WebSocketServerEndpoint {
+
+    @Autowired
+    private RabbitTemplate cloudRabbitTemplate;
 
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的
@@ -94,6 +100,7 @@ public class WebSocketServerEndpoint {
     public void onMessage(String msg) {
         log.info("收到来自客户端 [{}] 的消息 [{}]", uniqueKey, msg);
         // do something
+        cloudRabbitTemplate.convertAndSend(MsgExchangeEnum.MSG_COMMON_BROADCAST.getExchangeName(), MsgExchangeEnum.MSG_COMMON_BROADCAST.getRoutingKey(), msg);
     }
 
     /**
