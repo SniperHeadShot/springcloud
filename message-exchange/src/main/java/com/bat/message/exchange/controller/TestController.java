@@ -3,8 +3,10 @@ package com.bat.message.exchange.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.bat.commoncode.entity.CacheMsgBody;
 import com.bat.commoncode.entity.CustomStructure;
+import com.bat.commoncode.enums.MsgExchangeEnum;
 import com.bat.message.exchange.service.CacheManageService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * TODO 此文件删除
+ * TODO 此文件将被删除
  *
  * @author ZhengYu
  * @version 1.0 2019/11/27 13:57
@@ -22,6 +24,9 @@ import java.util.Random;
 @Slf4j
 @RestController
 public class TestController {
+
+    @Autowired
+    private RabbitTemplate cloudRabbitTemplate;
 
     private static List<CustomStructure> DB_ADD = new ArrayList<CustomStructure>() {{
         add(new CustomStructure("zs", 10));
@@ -62,6 +67,12 @@ public class TestController {
     @GetMapping("/test/del")
     public String testDel() {
         cacheManageService.delCache("highKey");
+        return "succ";
+    }
+
+    @GetMapping("/test/rabbitmq")
+    public String testRabbitMq(){
+        cloudRabbitTemplate.convertAndSend(MsgExchangeEnum.MSG_COMMON_BROADCAST.getExchangeName(), MsgExchangeEnum.MSG_COMMON_BROADCAST.getRoutingKey(), "/test/rabbitmq");
         return "succ";
     }
 }

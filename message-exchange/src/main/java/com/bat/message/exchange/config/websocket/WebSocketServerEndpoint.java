@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @Data
 @ServerEndpoint("/websocket/{uniqueKey}")
 @Component
-public class WebSocketServer {
+public class WebSocketServerEndpoint {
 
     /**
      * 静态变量，用来记录当前在线连接数。应该把它设计成线程安全的
@@ -36,7 +36,7 @@ public class WebSocketServer {
     /**
      * concurrent包的线程安全Set，用来存放每个客户端对应的WebSocketServer对象
      */
-    private static CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<>();
+    private static CopyOnWriteArraySet<WebSocketServerEndpoint> webSocketSet = new CopyOnWriteArraySet<>();
 
     /**
      * 与某个客户端的连接会话，需要通过它来给客户端发送数据
@@ -105,15 +105,15 @@ public class WebSocketServer {
      */
     public static void sendBroadcastInfo(String msg, String uniqueKey) {
         webSocketSet.stream()
-                .filter(webSocketServer -> {
+                .filter(webSocketServerEndpoint -> {
                     if (StringUtils.isEmpty(uniqueKey)) {
                         return true;
                     }
-                    return webSocketServer != null && uniqueKey.equals(webSocketServer.getUniqueKey());
+                    return webSocketServerEndpoint != null && uniqueKey.equals(webSocketServerEndpoint.getUniqueKey());
                 })
-                .forEach(webSocketServer -> {
+                .forEach(webSocketServerEndpoint -> {
                     try {
-                        webSocketServer.sendMsg(msg);
+                        webSocketServerEndpoint.sendMsg(msg);
                     } catch (IOException e) {
                         log.error("WebSocket Exception ==>[{}] [{}]", e.getMessage(), e);
                     }
@@ -150,7 +150,7 @@ public class WebSocketServer {
             return false;
         }
 
-        WebSocketServer that = (WebSocketServer) o;
+        WebSocketServerEndpoint that = (WebSocketServerEndpoint) o;
 
         return new EqualsBuilder()
                 .append(session, that.session)

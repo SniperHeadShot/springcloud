@@ -4,8 +4,37 @@ server:
 spring:
   application:
     name: message-push
-# redis 地址
+  # redis 地址
   redis:
-    database: 9
-    host: 192.168.6.111
+    host: 47.100.114.192
     port: 6379
+    database: 5
+  # rabbitmq 配置
+  rabbitmq:
+    # 云rabbitmq配置
+    cloud:
+      host: 47.100.114.192
+      port: 5672
+      username: admin
+      password: 123456
+      virtual-host: /
+    # 本地rabbitmq配置
+    native:
+      host: 127.0.0.1
+      port: 5672
+      username: admin
+      password: 123456
+      virtual-host: /
+
+eureka:
+  instance:
+    hostname: 47.100.114.192
+    prefer-ip-address: true
+    instance-id: ${eureka.instance.hostname}:${server.port}
+    lease-renewal-interval-in-seconds: 5 # 每隔时间间隔主动心跳一次，更新自己的状态
+    lease-expiration-duration-in-seconds: 10 # 设置服务过期时间，过期则将这个实例剔除
+  client:
+    service-url:
+      fetch-registry: true # 从Eureka Server拉取服务地址清单后缓存到本地
+      registry-fetch-interval-seconds: 6 # 更新客户端缓存的服务清单时间间隔
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

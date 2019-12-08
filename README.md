@@ -1,10 +1,17 @@
-### 目录
-> commoncode: 公共注解，枚举，工具类等
+# 目录
 
-> eureka: 服务注册中心
+## Module：commoncode
 
-> feign
-> 1. feign-module01 FeignClient API
-> 2. 
+>公共注解，枚举，工具类等
 
-> message-exchange: 依赖Rabbitmq的消息中转服务
+## Module：eureka
+
+> 服务注册中心
+
+## Module：message-exchange
+
+> 消息中转服务，支持多rabbitmq配置，websocket长连接，socketjs订阅
+
+## Module：feign
+
+> 模拟客户端调用服务
