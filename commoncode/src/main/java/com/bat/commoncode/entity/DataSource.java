@@ -11,6 +11,13 @@ import lombok.Data;
 @Data
 public class DataSource {
 
+    /**
+     * 数据源唯一标识
+     */
+    private String uniqueKey;
+
+    private String driverClass;
+
     private String host;
 
     private Integer port;
@@ -19,5 +26,9 @@ public class DataSource {
 
     private String password;
 
+    /**
+     * 库
+     */
     private String aimDb;
 }
+
