@@ -13,7 +13,7 @@ public enum MsgExchangeEnum {
      */
     MSG_COMMON_BROADCAST("cloud", "v1.exchange.common", "v1.routingKey.common.broadcast", "v1.queue.common.broadcast", 5000),
 
-    MSG_DEAD_LETTER("dlx", "v1.exchange.dlx", "v1.routingKey.dlx", "v1.queue.dlx", null);
+    MSG_DEAD_LETTER("dlx", "v1.exchange.dlx", "v1.routingKey.dlx", "v1.queue.dlx", 18000000);
 
     /**
      * 区分Rabbitmq连接个数

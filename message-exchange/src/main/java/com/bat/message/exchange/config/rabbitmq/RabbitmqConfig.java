@@ -1,6 +1,7 @@
 package com.bat.message.exchange.config.rabbitmq;
 
 import com.bat.commoncode.enums.MsgExchangeEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
@@ -11,6 +12,7 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,7 @@ import java.util.HashMap;
  * @author ZhengYu
  * @version 1.0 2019/12/8 14:38
  **/
+@Slf4j
 @Configuration
 public class RabbitmqConfig {
 
@@ -96,7 +99,14 @@ public class RabbitmqConfig {
         // 初始化死信队列用于处理Rabbitmq未处理成功的消息
         DirectExchange dlxExchange = new DirectExchange(MsgExchangeEnum.MSG_DEAD_LETTER.getExchangeName());
         rabbitAdmin.declareExchange(dlxExchange);
-        Queue dlxQueue = new Queue(MsgExchangeEnum.MSG_DEAD_LETTER.getQueueName());
+        Queue dlxQueue = new Queue(
+                MsgExchangeEnum.MSG_DEAD_LETTER.getQueueName(),
+                true,
+                false,
+                false,
+                new HashMap<String, Object>(1) {{
+                    put("x-message-ttl", MsgExchangeEnum.MSG_DEAD_LETTER.getTtl());
+                }});
         rabbitAdmin.declareQueue(dlxQueue);
         rabbitAdmin.declareBinding(BindingBuilder.bind(dlxQueue).to(dlxExchange).with(MsgExchangeEnum.MSG_DEAD_LETTER.getRoutingKey()));
 
@@ -128,6 +138,20 @@ public class RabbitmqConfig {
     @Bean("cloudRabbitTemplate")
     @Primary
     public RabbitTemplate cloudRabbitTemplate(@Qualifier("cloudConnectionFactory") ConnectionFactory connectionFactory) {
-        return new RabbitTemplate(connectionFactory);
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        // 消息是否发送到交换机回调
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+            if (ack) {
+                log.info("rabbitmq send message[id={}] success", correlationData.getId());
+            } else {
+                log.error("rabbitmq send message[id={}] fail", correlationData.getId());
+            }
+        });
+        // 触发setReturnCallback回调必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发回调
+        rabbitTemplate.setMandatory(true);
+
+        // 消息是否从交换机路由到队列回调
+        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> log.error("rabbitmq send message[message={}, replyCode={}, replyText={}, exchange={}, routingKey={}, ] fail", message.toString(), replyCode, replyText, exchange, routingKey));
+        return rabbitTemplate;
     }
 }

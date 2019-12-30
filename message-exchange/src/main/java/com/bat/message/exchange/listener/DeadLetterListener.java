@@ -15,7 +15,9 @@ import org.springframework.stereotype.Component;
 @RabbitListener(
         containerFactory = "cloudRabbitListenerContainerFactory",
         bindings = @QueueBinding(
-                value = @Queue(value = "v1.queue.dlx", durable = "true"),
+                value = @Queue(value = "v1.queue.dlx", durable = "true",arguments = {
+                        @Argument(name = "x-message-ttl",value = "18000000",type = "java.lang.Integer")
+                }),
                 exchange = @Exchange(value = "v1.exchange.dlx"),
                 key = "v1.routingKey.dlx"))
 public class DeadLetterListener {

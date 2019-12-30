@@ -72,7 +72,7 @@ public class TestController {
 
     @GetMapping("/test/rabbitmq")
     public String testRabbitMq(){
-        cloudRabbitTemplate.convertAndSend(MsgExchangeEnum.MSG_COMMON_BROADCAST.getExchangeName(), MsgExchangeEnum.MSG_COMMON_BROADCAST.getRoutingKey(), "/test/rabbitmq");
+        cloudRabbitTemplate.convertAndSend(MsgExchangeEnum.MSG_COMMON_BROADCAST.getExchangeName(), MsgExchangeEnum.MSG_COMMON_BROADCAST.getRoutingKey(), "这是一条会过期的消息");
         return "succ";
     }
 }
