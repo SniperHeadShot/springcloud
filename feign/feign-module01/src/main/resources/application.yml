@@ -2,7 +2,7 @@ server:
   port: 8000
 
 custom:
-  clientUrl: http://192.168.9.164:9001
+  clientUrl: http://192.168.9.27:9001
 
 feign:
   hystrix:

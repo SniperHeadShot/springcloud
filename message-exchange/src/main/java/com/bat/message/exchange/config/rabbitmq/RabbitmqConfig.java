@@ -15,9 +15,11 @@ import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
 
 import java.util.HashMap;
 
@@ -60,6 +62,8 @@ public class RabbitmqConfig {
         cachingConnectionFactory.setVirtualHost(virtualHost);
         cachingConnectionFactory.setUsername(username);
         cachingConnectionFactory.setPassword(password);
+        // 设置消息回调
+        cachingConnectionFactory.setPublisherConfirms(true);
         return cachingConnectionFactory;
     }
 
@@ -136,6 +140,7 @@ public class RabbitmqConfig {
     }
 
     @Bean("cloudRabbitTemplate")
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     @Primary
     public RabbitTemplate cloudRabbitTemplate(@Qualifier("cloudConnectionFactory") ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);

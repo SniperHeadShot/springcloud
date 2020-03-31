@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * @author ZhengYu
  * @version 1.0 2019/10/31 15:19
  **/
-@RequestMapping("/custom")
-@FeignClient(name = "custom-client", url = "${custom.clientUrl}", fallbackFactory = CustomClientFallbackFactory.class)
+@FeignClient(name = "custom-client", url = "${custom.clientUrl}", path = "/custom", fallbackFactory = CustomClientFallbackFactory.class)
 public interface CustomClient {
 
     /**
