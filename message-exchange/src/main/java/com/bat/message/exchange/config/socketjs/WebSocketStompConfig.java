@@ -19,6 +19,19 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
 
     /**
+     * Configure message broker options.
+     *
+     * @param registry 注册信息
+     */
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        // 表示指定一对一发送队列的前缀
+        registry.setUserDestinationPrefix("/user");
+        // 表示客户端订阅地址的前缀信息，也就是客户端接收服务端消息的地址的前缀信息
+        registry.enableSimpleBroker("/topic");
+    }
+
+    /**
      * Register STOMP endpoints mapping each to a specific URL and (optionally)
      * enabling and configuring SockJS fallback options.
      *
@@ -30,18 +43,5 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
         registry.addEndpoint("/socketJsServer")
                 .setAllowedOrigins("*")
                 .withSockJS();
-    }
-
-    /**
-     * Configure message broker options.
-     *
-     * @param registry 注册信息
-     */
-    @Override
-    public void configureMessageBroker(MessageBrokerRegistry registry) {
-        // 广播式配置一个/topic消息代理
-        registry.enableSimpleBroker("/topic");
-        // 点对点配置一个/user消息代理
-        registry.setUserDestinationPrefix("/user");
     }
 }

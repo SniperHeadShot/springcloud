@@ -26,8 +26,9 @@ spring:
       username: admin
       password: 123456
       virtual-host: /
+    publisher-confirms: true
     listener:
-      direct:
+      simple:
         acknowledge-mode: manual
 
 eureka:

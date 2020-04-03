@@ -1,5 +1,6 @@
 package com.bat.message.exchange.config.rabbitmq;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bat.commoncode.enums.MsgExchangeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.BindingBuilder;
@@ -12,7 +13,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.RabbitListenerContainerFactory;
-import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -145,18 +145,12 @@ public class RabbitmqConfig {
     public RabbitTemplate cloudRabbitTemplate(@Qualifier("cloudConnectionFactory") ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         // 消息是否发送到交换机回调
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            if (ack) {
-                log.info("rabbitmq send message[id={}] success", correlationData.getId());
-            } else {
-                log.error("rabbitmq send message[id={}] fail", correlationData.getId());
-            }
-        });
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> log.info("发送消息回调结果: correlationData=[{}], ack=[{}], cause=[{}]", JSONObject.toJSONString(correlationData), ack, cause));
         // 触发setReturnCallback回调必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发回调
         rabbitTemplate.setMandatory(true);
 
         // 消息是否从交换机路由到队列回调
-        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> log.error("rabbitmq send message[message={}, replyCode={}, replyText={}, exchange={}, routingKey={}, ] fail", message.toString(), replyCode, replyText, exchange, routingKey));
+        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> log.info("rabbitmq send message[message={}, replyCode={}, replyText={}, exchange={}, routingKey={}, ] fail", message.toString(), replyCode, replyText, exchange, routingKey));
         return rabbitTemplate;
     }
 }
