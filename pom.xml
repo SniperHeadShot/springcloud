@@ -16,5 +16,6 @@
         <module>message-exchange</module>
         <module>commoncode</module>
         <module>feign</module>
+        <module>customservices</module>
     </modules>
 </project>
